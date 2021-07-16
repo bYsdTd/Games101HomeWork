@@ -42,7 +42,7 @@ auto to_vec4(const Eigen::Vector3f& v3, float w = 1.0f)
 }
 
 
-static bool insideTriangle(int x, int y, const Vector3f* _v)
+static bool insideTriangle(float x, float y, const Vector3f* _v)
 {   
     auto a = _v[0];
     auto b = _v[1];
@@ -142,7 +142,34 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
     {
         for (size_t x = l; x <= r; x++)
         {
-            if (insideTriangle(x, y, t.v))
+            float left = x - 0.25f;
+            float right = x + 0.25f;
+            float bottom = y - 0.25f;
+            float top = y + 0.25f;
+            
+            int count = 0;
+            if(insideTriangle(left, bottom, t.v))
+            {
+                count += 1;
+            }
+            
+            if(insideTriangle(left, top, t.v))
+            {
+                count += 1;
+            }
+
+            if(insideTriangle(right, top, t.v))
+            {
+                count += 1;
+            }
+
+            if(insideTriangle(right, bottom, t.v))
+            {
+                count += 1;
+            }
+
+            if (count > 0)
+            // if(insideTriangle(x, y, t.v))
             {
                 auto[alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
                 float w_reciprocal = 1.0/(alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
@@ -152,7 +179,8 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
                 if (depth_buf[y*width+x] == std::numeric_limits<float>::infinity() || z_interpolated > depth_buf[y*width+x])
                 {
                     depth_buf[y*width+x] = z_interpolated;
-                    set_pixel(Eigen::Vector3f(x, y, z_interpolated), t.getColor());
+                    set_pixel(Eigen::Vector3f(x, y, z_interpolated), t.getColor() * count/4);
+                    // set_pixel(Eigen::Vector3f(x, y, z_interpolated), t.getColor());
                 }
             }            
         }

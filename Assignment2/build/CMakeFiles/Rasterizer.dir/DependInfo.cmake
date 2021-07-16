@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "F:/projects/Games101/projects/Assignment2/Triangle.cpp" "CMakeFiles/Rasterizer.dir/Triangle.cpp.obj" "gcc" "CMakeFiles/Rasterizer.dir/Triangle.cpp.obj.d"
-  "F:/projects/Games101/projects/Assignment2/main.cpp" "CMakeFiles/Rasterizer.dir/main.cpp.obj" "gcc" "CMakeFiles/Rasterizer.dir/main.cpp.obj.d"
-  "F:/projects/Games101/projects/Assignment2/rasterizer.cpp" "CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj" "gcc" "CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj.d"
+  "F:/projects/Games101/Games101HomeWork/Assignment2/Triangle.cpp" "CMakeFiles/Rasterizer.dir/Triangle.cpp.obj" "gcc" "CMakeFiles/Rasterizer.dir/Triangle.cpp.obj.d"
+  "F:/projects/Games101/Games101HomeWork/Assignment2/main.cpp" "CMakeFiles/Rasterizer.dir/main.cpp.obj" "gcc" "CMakeFiles/Rasterizer.dir/main.cpp.obj.d"
+  "F:/projects/Games101/Games101HomeWork/Assignment2/rasterizer.cpp" "CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj" "gcc" "CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj.d"
   )
 
 # Targets to which this target links.

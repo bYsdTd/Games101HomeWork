@@ -1,5 +1,5 @@
 CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj: \
- F:\projects\Games101\projects\Assignment2\rasterizer.cpp \
+ F:\projects\Games101\Games101HomeWork\Assignment2\rasterizer.cpp \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/algorithm \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/utility \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
@@ -70,7 +70,7 @@ CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj: \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/functional_hash.h \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/range_access.h \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/vector.tcc \
- F:\projects\Games101\projects\Assignment2\rasterizer.hpp \
+ F:\projects\Games101\Games101HomeWork\Assignment2\rasterizer.hpp \
  C:/PROGRA~2/Eigen3/include/eigen3/Eigen/Eigen \
  C:/PROGRA~2/Eigen3/include/eigen3/Eigen/Dense \
  C:/PROGRA~2/Eigen3/include/eigen3/Eigen/Core \
@@ -448,8 +448,8 @@ CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj: \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_list.h \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/allocated_ptr.h \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/list.tcc \
- F:\projects\Games101\projects\Assignment2\global.hpp \
- F:\projects\Games101\projects\Assignment2\Triangle.hpp \
+ F:\projects\Games101\Games101HomeWork\Assignment2\global.hpp \
+ F:\projects\Games101\Games101HomeWork\Assignment2\Triangle.hpp \
  F:/projects/Games101/projects/opencv/sources/include/opencv2/opencv.hpp \
  F:/projects/Games101/projects/opencv/sources/build/opencv2/opencv_modules.hpp \
  F:/projects/Games101/projects/opencv/sources/modules/core/include/opencv2/core.hpp \

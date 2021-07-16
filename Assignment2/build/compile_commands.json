@@ -1,17 +1,17 @@
 [
 {
-  "directory": "F:/projects/Games101/projects/Assignment2/build",
-  "command": "C:\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe  @CMakeFiles/Rasterizer.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\Rasterizer.dir\\main.cpp.obj -c F:\\projects\\Games101\\projects\\Assignment2\\main.cpp",
-  "file": "F:/projects/Games101/projects/Assignment2/main.cpp"
+  "directory": "F:/projects/Games101/Games101HomeWork/Assignment2/build",
+  "command": "C:\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe  @CMakeFiles/Rasterizer.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\Rasterizer.dir\\main.cpp.obj -c F:\\projects\\Games101\\Games101HomeWork\\Assignment2\\main.cpp",
+  "file": "F:/projects/Games101/Games101HomeWork/Assignment2/main.cpp"
 },
 {
-  "directory": "F:/projects/Games101/projects/Assignment2/build",
-  "command": "C:\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe  @CMakeFiles/Rasterizer.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\Rasterizer.dir\\rasterizer.cpp.obj -c F:\\projects\\Games101\\projects\\Assignment2\\rasterizer.cpp",
-  "file": "F:/projects/Games101/projects/Assignment2/rasterizer.cpp"
+  "directory": "F:/projects/Games101/Games101HomeWork/Assignment2/build",
+  "command": "C:\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe  @CMakeFiles/Rasterizer.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\Rasterizer.dir\\rasterizer.cpp.obj -c F:\\projects\\Games101\\Games101HomeWork\\Assignment2\\rasterizer.cpp",
+  "file": "F:/projects/Games101/Games101HomeWork/Assignment2/rasterizer.cpp"
 },
 {
-  "directory": "F:/projects/Games101/projects/Assignment2/build",
-  "command": "C:\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe  @CMakeFiles/Rasterizer.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\Rasterizer.dir\\Triangle.cpp.obj -c F:\\projects\\Games101\\projects\\Assignment2\\Triangle.cpp",
-  "file": "F:/projects/Games101/projects/Assignment2/Triangle.cpp"
+  "directory": "F:/projects/Games101/Games101HomeWork/Assignment2/build",
+  "command": "C:\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe  @CMakeFiles/Rasterizer.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\Rasterizer.dir\\Triangle.cpp.obj -c F:\\projects\\Games101\\Games101HomeWork\\Assignment2\\Triangle.cpp",
+  "file": "F:/projects/Games101/Games101HomeWork/Assignment2/Triangle.cpp"
 }
 ]

@@ -1,5 +1,5 @@
 CMakeFiles/Rasterizer.dir/main.cpp.obj: \
- F:\projects\Games101\projects\Assignment2\main.cpp \
+ F:\projects\Games101\Games101HomeWork\Assignment2\main.cpp \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/iostream \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
@@ -345,7 +345,7 @@ CMakeFiles/Rasterizer.dir/main.cpp.obj: \
  F:/projects/Games101/projects/opencv/sources/modules/video/include/opencv2/video.hpp \
  F:/projects/Games101/projects/opencv/sources/modules/video/include/opencv2/video/tracking.hpp \
  F:/projects/Games101/projects/opencv/sources/modules/video/include/opencv2/video/background_segm.hpp \
- F:\projects\Games101\projects\Assignment2\rasterizer.hpp \
+ F:\projects\Games101\Games101HomeWork\Assignment2\rasterizer.hpp \
  C:/PROGRA~2/Eigen3/include/eigen3/Eigen/Eigen \
  C:/PROGRA~2/Eigen3/include/eigen3/Eigen/Dense \
  C:/PROGRA~2/Eigen3/include/eigen3/Eigen/Core \
@@ -599,5 +599,5 @@ CMakeFiles/Rasterizer.dir/main.cpp.obj: \
  C:/PROGRA~2/Eigen3/include/eigen3/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h \
  C:/PROGRA~2/Eigen3/include/eigen3/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h \
  C:/PROGRA~2/Eigen3/include/eigen3/Eigen/src/IterativeLinearSolvers/IncompleteCholesky.h \
- F:\projects\Games101\projects\Assignment2\global.hpp \
- F:\projects\Games101\projects\Assignment2\Triangle.hpp
+ F:\projects\Games101\Games101HomeWork\Assignment2\global.hpp \
+ F:\projects\Games101\Games101HomeWork\Assignment2\Triangle.hpp

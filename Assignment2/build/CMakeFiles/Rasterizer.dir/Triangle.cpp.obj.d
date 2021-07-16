@@ -1,6 +1,6 @@
 CMakeFiles/Rasterizer.dir/Triangle.cpp.obj: \
- F:\projects\Games101\projects\Assignment2\Triangle.cpp \
- F:\projects\Games101\projects\Assignment2\Triangle.hpp \
+ F:\projects\Games101\Games101HomeWork\Assignment2\Triangle.cpp \
+ F:\projects\Games101\Games101HomeWork\Assignment2\Triangle.hpp \
  C:/PROGRA~2/Eigen3/include/eigen3/Eigen/Eigen \
  C:/PROGRA~2/Eigen3/include/eigen3/Eigen/Dense \
  C:/PROGRA~2/Eigen3/include/eigen3/Eigen/Core \
