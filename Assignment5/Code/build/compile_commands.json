@@ -1,0 +1,17 @@
+[
+{
+  "directory": "F:/projects/Games101/projects/Assignment5/Code/build",
+  "command": "C:\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe   -g -Wall -Wextra -pedantic -Wshadow -Wreturn-type -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\main.cpp.obj -c F:\\projects\\Games101\\projects\\Assignment5\\Code\\main.cpp",
+  "file": "F:/projects/Games101/projects/Assignment5/Code/main.cpp"
+},
+{
+  "directory": "F:/projects/Games101/projects/Assignment5/Code/build",
+  "command": "C:\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe   -g -Wall -Wextra -pedantic -Wshadow -Wreturn-type -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\Scene.cpp.obj -c F:\\projects\\Games101\\projects\\Assignment5\\Code\\Scene.cpp",
+  "file": "F:/projects/Games101/projects/Assignment5/Code/Scene.cpp"
+},
+{
+  "directory": "F:/projects/Games101/projects/Assignment5/Code/build",
+  "command": "C:\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe   -g -Wall -Wextra -pedantic -Wshadow -Wreturn-type -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\Renderer.cpp.obj -c F:\\projects\\Games101\\projects\\Assignment5\\Code\\Renderer.cpp",
+  "file": "F:/projects/Games101/projects/Assignment5/Code/Renderer.cpp"
+}
+]
