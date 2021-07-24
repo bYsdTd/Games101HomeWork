@@ -4,38 +4,38 @@
 		"generator" : 
 		{
 			"multiConfig" : false,
-			"name" : "MinGW Makefiles"
+			"name" : "Unix Makefiles"
 		},
 		"paths" : 
 		{
-			"cmake" : "E:/Program Files/CMake/bin/cmake.exe",
-			"cpack" : "E:/Program Files/CMake/bin/cpack.exe",
-			"ctest" : "E:/Program Files/CMake/bin/ctest.exe",
-			"root" : "E:/Program Files/CMake/share/cmake-3.20"
+			"cmake" : "/Applications/CMake.app/Contents/bin/cmake",
+			"cpack" : "/Applications/CMake.app/Contents/bin/cpack",
+			"ctest" : "/Applications/CMake.app/Contents/bin/ctest",
+			"root" : "/Applications/CMake.app/Contents/share/cmake-3.21"
 		},
 		"version" : 
 		{
 			"isDirty" : false,
 			"major" : 3,
-			"minor" : 20,
-			"patch" : 3,
-			"string" : "3.20.3",
+			"minor" : 21,
+			"patch" : 0,
+			"string" : "3.21.0",
 			"suffix" : ""
 		}
 	},
 	"objects" : 
 	[
 		{
-			"jsonFile" : "codemodel-v2-cb018591c61381cdb810.json",
+			"jsonFile" : "codemodel-v2-69d9f720ed1faf23d1fc.json",
 			"kind" : "codemodel",
 			"version" : 
 			{
 				"major" : 2,
-				"minor" : 2
+				"minor" : 3
 			}
 		},
 		{
-			"jsonFile" : "cache-v2-cf8833cec5ee384664a9.json",
+			"jsonFile" : "cache-v2-a7f6403607b9be17e7e0.json",
 			"kind" : "cache",
 			"version" : 
 			{
@@ -44,7 +44,7 @@
 			}
 		},
 		{
-			"jsonFile" : "toolchains-v1-dc356454a6579021c5ae.json",
+			"jsonFile" : "toolchains-v1-50f12f658e010017b2e0.json",
 			"kind" : "toolchains",
 			"version" : 
 			{
@@ -77,7 +77,7 @@
 				"responses" : 
 				[
 					{
-						"jsonFile" : "cache-v2-cf8833cec5ee384664a9.json",
+						"jsonFile" : "cache-v2-a7f6403607b9be17e7e0.json",
 						"kind" : "cache",
 						"version" : 
 						{
@@ -86,16 +86,16 @@
 						}
 					},
 					{
-						"jsonFile" : "codemodel-v2-cb018591c61381cdb810.json",
+						"jsonFile" : "codemodel-v2-69d9f720ed1faf23d1fc.json",
 						"kind" : "codemodel",
 						"version" : 
 						{
 							"major" : 2,
-							"minor" : 2
+							"minor" : 3
 						}
 					},
 					{
-						"jsonFile" : "toolchains-v1-dc356454a6579021c5ae.json",
+						"jsonFile" : "toolchains-v1-50f12f658e010017b2e0.json",
 						"kind" : "toolchains",
 						"version" : 
 						{

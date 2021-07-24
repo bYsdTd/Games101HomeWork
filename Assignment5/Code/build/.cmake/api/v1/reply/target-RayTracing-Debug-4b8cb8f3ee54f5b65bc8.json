@@ -2,10 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "RayTracing.exe"
-		},
-		{
-			"path" : "RayTracing.pdb"
+			"path" : "RayTracing"
 		}
 	],
 	"backtrace" : 1,
@@ -52,7 +49,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g"
+					"fragment" : "-g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -mmacosx-version-min=10.15"
 				},
 				{
 					"backtrace" : 2,
@@ -107,16 +104,12 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
-			},
-			{
-				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
-				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
 	"name" : "RayTracing",
-	"nameOnDisk" : "RayTracing.exe",
+	"nameOnDisk" : "RayTracing",
 	"paths" : 
 	{
 		"build" : ".",

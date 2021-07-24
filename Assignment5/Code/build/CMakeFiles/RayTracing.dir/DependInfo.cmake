@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "F:/projects/Games101/projects/Assignment5/Code/Renderer.cpp" "CMakeFiles/RayTracing.dir/Renderer.cpp.obj" "gcc" "CMakeFiles/RayTracing.dir/Renderer.cpp.obj.d"
-  "F:/projects/Games101/projects/Assignment5/Code/Scene.cpp" "CMakeFiles/RayTracing.dir/Scene.cpp.obj" "gcc" "CMakeFiles/RayTracing.dir/Scene.cpp.obj.d"
-  "F:/projects/Games101/projects/Assignment5/Code/main.cpp" "CMakeFiles/RayTracing.dir/main.cpp.obj" "gcc" "CMakeFiles/RayTracing.dir/main.cpp.obj.d"
+  "/Users/yi.zhang/Games101HomeWork/Assignment5/Code/Renderer.cpp" "CMakeFiles/RayTracing.dir/Renderer.cpp.o" "gcc" "CMakeFiles/RayTracing.dir/Renderer.cpp.o.d"
+  "/Users/yi.zhang/Games101HomeWork/Assignment5/Code/Scene.cpp" "CMakeFiles/RayTracing.dir/Scene.cpp.o" "gcc" "CMakeFiles/RayTracing.dir/Scene.cpp.o.d"
+  "/Users/yi.zhang/Games101HomeWork/Assignment5/Code/main.cpp" "CMakeFiles/RayTracing.dir/main.cpp.o" "gcc" "CMakeFiles/RayTracing.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links.

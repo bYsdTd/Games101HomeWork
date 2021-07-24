@@ -1,14 +1,12 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/RayTracing.dir/Renderer.cpp.obj"
-  "CMakeFiles/RayTracing.dir/Renderer.cpp.obj.d"
-  "CMakeFiles/RayTracing.dir/Scene.cpp.obj"
-  "CMakeFiles/RayTracing.dir/Scene.cpp.obj.d"
-  "CMakeFiles/RayTracing.dir/main.cpp.obj"
-  "CMakeFiles/RayTracing.dir/main.cpp.obj.d"
-  "RayTracing.exe"
-  "RayTracing.exe.manifest"
+  "CMakeFiles/RayTracing.dir/Renderer.cpp.o"
+  "CMakeFiles/RayTracing.dir/Renderer.cpp.o.d"
+  "CMakeFiles/RayTracing.dir/Scene.cpp.o"
+  "CMakeFiles/RayTracing.dir/Scene.cpp.o.d"
+  "CMakeFiles/RayTracing.dir/main.cpp.o"
+  "CMakeFiles/RayTracing.dir/main.cpp.o.d"
+  "RayTracing"
   "RayTracing.pdb"
-  "libRayTracing.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.
