@@ -1,7 +1,0 @@
-[
-{
-  "directory": "C:/Users/nickz/Desktop/projects/Assignment0/build",
-  "command": "C:\\mingw64\\bin\\g++.exe   @CMakeFiles/Transformation.dir/includes_CXX.rsp -g   -o CMakeFiles\\Transformation.dir\\main.cpp.obj -c C:\\Users\\nickz\\Desktop\\projects\\Assignment0\\main.cpp",
-  "file": "C:/Users/nickz/Desktop/projects/Assignment0/main.cpp"
-}
-]

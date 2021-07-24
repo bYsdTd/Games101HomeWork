@@ -1,3 +1,0 @@
-C:/Users/nickz/Desktop/projects/Assignment0/build/CMakeFiles/edit_cache.dir
-C:/Users/nickz/Desktop/projects/Assignment0/build/CMakeFiles/Transformation.dir
-C:/Users/nickz/Desktop/projects/Assignment0/build/CMakeFiles/rebuild_cache.dir
