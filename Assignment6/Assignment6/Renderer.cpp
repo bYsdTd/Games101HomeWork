@@ -36,6 +36,11 @@ void Renderer::Render(const Scene& scene)
 
             // Don't forget to normalize this direction!
 
+            Vector3f dir = Vector3f(x, y, -1); // Don't forget to normalize this direction!
+            
+            dir = normalize(dir);
+            Vector3f color = scene.castRay(Ray(eye_pos, dir), 5);
+            framebuffer[m++] = color;
         }
         UpdateProgress(j / (float)scene.height);
     }
