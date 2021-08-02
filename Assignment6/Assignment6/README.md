@@ -1,3 +1,6 @@
 
-I've finished task ...
+- 提交格式正确
+- 包围盒求交
+- BVH查找
+
 
