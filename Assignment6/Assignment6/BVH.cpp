@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <cassert>
+#include <math.h>
 #include "BVH.hpp"
 
 BVHAccel::BVHAccel(std::vector<Object*> p, int maxPrimsInNode,
@@ -97,7 +98,8 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
             auto getCenter = [](size_t axis, Object* obj) -> float {
                 if (axis == 0) return obj->getBounds().Centroid().x;
                 if (axis == 1) return obj->getBounds().Centroid().y;
-                if (axis == 2) return obj->getBounds().Centroid().z;                
+                if (axis == 2) return obj->getBounds().Centroid().z;    
+                return 0;            
             };
             
             // 根据轴向获取obj的最小值
@@ -105,6 +107,7 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
                 if (axis == 0) return obj->getBounds().pMin.x;
                 if (axis == 1) return obj->getBounds().pMin.y;
                 if (axis == 2) return obj->getBounds().pMin.z;
+                return 0;
             };
 
             // 根据轴向获取obj的最大值
@@ -112,16 +115,60 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
                 if (axis == 0) return obj->getBounds().pMax.x;
                 if (axis == 1) return obj->getBounds().pMax.y;
                 if (axis == 2) return obj->getBounds().pMax.z;
+                return 0;
             };
+
+            struct Bucket
+            {
+                std::vector<Object*> objsInBucket;
+                Bounds3 bounds;
+            };
+            
+            float minC = std::numeric_limits<float>::infinity();
+            std::vector<Object*> leftShapes;
+            std::vector<Object*> rightShapes;
 
             for (size_t axis = 0; axis < 2; axis++)
             {
-                float min = std::numeric_limits<float>::infinity();
-                float max = -std::numeric_limits<float>::infinity();
+                float minValue = std::numeric_limits<float>::infinity();
+                float maxValue = -std::numeric_limits<float>::infinity();
                 for (size_t i = 0; i < objects.size(); i++)
                 {
-                    
+                    minValue = std::min(getMin(axis, objects[i]), minValue);
+                    maxValue = std::max(getMax(axis, objects[i]), maxValue);  
                 }
+                
+                // below 32, 初始化每个桶的object和bound
+                int B = 30;
+                float step = (maxValue - minValue)/B;
+                auto buckets = std::vector<Bucket>(B);
+                for (size_t i = 0; i < objects.size(); i++)
+                {
+                    float center = getCenter(axis, objects[i]);
+                    int bucketIndex = std::min(int((center - minValue) / step), B-1);
+                    
+                    buckets[bucketIndex].objsInBucket.push_back(objects[i]);
+                    buckets[bucketIndex].bounds = Union(buckets[bucketIndex].bounds, objects[i]->getBounds());
+                }
+                
+                // 遍历B-1中分割方法, 找到C值最小的
+                // C = boundsA.surfaceArea/totalBounds.surfaceArea * objCountA + boundsB.surfaceArea/totalBounds.surfaceArea * objCountB
+                auto leftBounds = buckets[0].bounds;
+                auto leftObjCount = buckets[0].objsInBucket.size();
+
+                auto rightBounds = Bounds3();
+                auto rightObjCount = 0;
+
+                for (size_t i = 1; i < B; i++)
+                {
+                    rightBounds = Union(rightBounds, buckets[i].bounds);
+                    rightObjCount += buckets[i].objsInBucket.size();
+                }
+
+                auto totalBounds = Union(leftBounds, rightBounds);
+                minC = leftBounds.SurfaceArea()/totalBounds.SurfaceArea() * leftObjCount 
+                        + rightBounds.SurfaceArea()/totalBounds.SurfaceArea() * rightObjCount;
+
                 
             }
         }
