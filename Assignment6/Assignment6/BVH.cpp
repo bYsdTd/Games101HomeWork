@@ -139,7 +139,7 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
                 }
                 
                 // below 32, 初始化每个桶的object和bound
-                int B = 30;
+                int B = 31;
                 float step = (maxValue - minValue)/B;
                 auto buckets = std::vector<Bucket>(B);
                 for (size_t i = 0; i < objects.size(); i++)
@@ -216,7 +216,11 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
                 }
             }
 
-            std::cout << leftShapes.size() << " " << rightShapes.size() << " " << objects.size() << " minC " << minC << std::endl;
+            // if (objects.size() != (leftShapes.size() + rightShapes.size()))
+            // {
+            //     std::cout << leftShapes.size() << " " << rightShapes.size() << " " << objects.size() << " minC " << minC << std::endl;
+            // }
+            
             assert(objects.size() == (leftShapes.size() + rightShapes.size()));
             node->left = recursiveBuild(leftShapes);
             node->right = recursiveBuild(rightShapes);
