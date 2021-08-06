@@ -198,6 +198,7 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
                 // 每个轴计算一次划分后的child objects
                 if (c < minC)
                 {
+                    minC = c;
                     leftShapes.clear();
                     rightShapes.clear();
                     
@@ -215,6 +216,7 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
                 }
             }
 
+            std::cout << leftShapes.size() << " " << rightShapes.size() << " " << objects.size() << " minC " << minC << std::endl;
             assert(objects.size() == (leftShapes.size() + rightShapes.size()));
             node->left = recursiveBuild(leftShapes);
             node->right = recursiveBuild(rightShapes);
