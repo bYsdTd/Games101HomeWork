@@ -153,24 +153,73 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
                 
                 // 遍历B-1中分割方法, 找到C值最小的
                 // C = boundsA.surfaceArea/totalBounds.surfaceArea * objCountA + boundsB.surfaceArea/totalBounds.surfaceArea * objCountB
-                auto leftBounds = buckets[0].bounds;
-                auto leftObjCount = buckets[0].objsInBucket.size();
-
-                auto rightBounds = Bounds3();
-                auto rightObjCount = 0;
-
-                for (size_t i = 1; i < B; i++)
-                {
-                    rightBounds = Union(rightBounds, buckets[i].bounds);
-                    rightObjCount += buckets[i].objsInBucket.size();
-                }
-
-                auto totalBounds = Union(leftBounds, rightBounds);
-                minC = leftBounds.SurfaceArea()/totalBounds.SurfaceArea() * leftObjCount 
-                        + rightBounds.SurfaceArea()/totalBounds.SurfaceArea() * rightObjCount;
-
                 
+                auto leftBounds = std::vector<Bounds3>(B-1);
+                auto rightBounds = std::vector<Bounds3>(B-1);
+                auto leftCounts = std::vector<int>(B-1);
+                auto rightCounts = std::vector<int>(B-1);
+
+                for (size_t i = 0; i < B-1; i++)
+                {
+                    if (i==0)
+                    {
+                        leftBounds[i] = buckets[i].bounds;
+                        rightBounds[B-2-i] = buckets[B-1-i].bounds;
+
+                        leftCounts[i] = buckets[i].objsInBucket.size();
+                        rightCounts[B-2-i] = buckets[B-1-i].objsInBucket.size();
+                    }
+                    else
+                    {
+                        leftBounds[i] = Union(buckets[i].bounds, leftBounds[i-1]);
+                        rightBounds[B-2-i] = Union(buckets[B-1-i].bounds, rightBounds[B-1-i]);
+
+                        leftCounts[i] = leftCounts[i-1] + buckets[i].objsInBucket.size();
+                        rightCounts[B-2-i] = buckets[B-1-i].objsInBucket.size() + rightCounts[B-1-i];
+                    }
+                }
+                
+                auto totalBounds = Union(leftBounds[0], rightBounds[0]);
+
+                int breakIndex = 0;
+                float c = std::numeric_limits<float>::infinity();
+                for (size_t i = 0; i < B-1; i++)
+                {
+                    auto tempC = leftBounds[i].SurfaceArea() * leftCounts[i] / totalBounds.SurfaceArea()
+                            + rightBounds[i].SurfaceArea() * rightCounts[i] / totalBounds.SurfaceArea();
+
+                    if (tempC < c)
+                    {
+                        c = tempC;
+                        breakIndex = i;
+                    }
+                }
+                
+                // 每个轴计算一次划分后的child objects
+                if (c < minC)
+                {
+                    leftShapes.clear();
+                    rightShapes.clear();
+                    
+                    for (size_t i = 0; i < B; i++)
+                    {
+                        if (i <= breakIndex)
+                        {
+                            leftShapes.insert(leftShapes.end(), buckets[i].objsInBucket.begin(), buckets[i].objsInBucket.end());
+                        }
+                        else
+                        {
+                            rightShapes.insert(rightShapes.end(), buckets[i].objsInBucket.begin(), buckets[i].objsInBucket.end());
+                        }
+                    }   
+                }
             }
+
+            assert(objects.size() == (leftShapes.size() + rightShapes.size()));
+            node->left = recursiveBuild(leftShapes);
+            node->right = recursiveBuild(rightShapes);
+
+            node->bounds = Union(node->left->bounds, node->right->bounds);
         }
 
     }
