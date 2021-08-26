@@ -39,7 +39,7 @@ void Scene::sampleLight(Intersection &pos, float &pdf) const
 bool Scene::trace(
         const Ray &ray,
         const std::vector<Object*> &objects,
-        float &tNear, uint32_t &index, Object **hitObject)
+        float &tNear, uint32_t &index, Object **hitObject) const
 {
     *hitObject = nullptr;
     for (uint32_t k = 0; k < objects.size(); ++k) {
@@ -57,12 +57,9 @@ bool Scene::trace(
     return (*hitObject != nullptr);
 }
 
-// Implementation of Path Tracing
-Vector3f Scene::castRay(const Ray &ray, int depth) const
+// p 着色点，wo是入射光方向
+Vector3f Scene::shade(Vector3f p, Vector3f wo) const
 {
-    // TO DO Implement Path Tracing Algorithm here
-
-
     // shade(p, wo)
     //  sampleLight(inter, pdf_light)
     //  Get x, ws, NN, emit from inter
@@ -77,7 +74,31 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
     //      L_indir = shade(q, wi) * eval(wo, wi, N) * dot(wi, N) / pdf(wo, wi, N) / RussianRoulette
     // Return L_dir + L_indir
 
-    //发出射线，找到与场景的inter
-    //如果有碰撞，从碰撞点对所有的光源采样，得到采样的pdf
-    
+    // 直接光计算
+    Intersection pos;
+    float pdf_light;
+    sampleLight(pos, pdf_light);
+    Vector3f x = pos.coords;
+    Vector3f ws = normalize(x-p);
+    Vector3f NN = pos.normal;
+    Vector3f emit = pos.emit;
+    Ray r = Ray(p, ws);
+
+    float tNear;
+    uint32_t hitIndex;
+    Object* hitObject;
+    bool result = trace(r, objects, tNear, hitIndex, &hitObject);
+}
+
+// Implementation of Path Tracing
+Vector3f Scene::castRay(const Ray &ray, int depth) const
+{
+    // TO DO Implement Path Tracing Algorithm here
+    Intersection p = intersect(ray);
+    if (p.happened)
+    {
+        return shade(p.coords, ray.direction);
+    }
+
+    return Vector3f(0.0f);
 }
