@@ -135,7 +135,7 @@ inline bool Bounds3::IntersectP(const Ray& ray, const Vector3f& invDir,
     }
 
 
-    return tenter > 0 && tenter <= texit;
+    return texit > 0 && tenter <= texit;
 }
 
 inline Bounds3 Union(const Bounds3& b1, const Bounds3& b2)
