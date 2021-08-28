@@ -253,18 +253,33 @@ inline Intersection Triangle::getIntersection(Ray ray)
     t_tmp = dotProduct(e2, qvec) * det_inv;
 
     // TODO find ray triangle intersection
-    inter.happened = true;
-    inter.coords = (1-u-v)*v0 + u*v1 + v*v2;
+    // inter.happened = true;
+    // // inter.coords = (1-u-v)*v0 + u*v1 + v*v2;
     // inter.coords = ray(t_tmp);
-    inter.obj = this;
-    inter.m = this->m;
-    auto lenDir = (inter.coords - ray.origin);
-    inter.distance = sqrtf(lenDir.x*lenDir.x + lenDir.y*lenDir.y + lenDir.z*lenDir.z);
+    // inter.obj = this;
+    // inter.m = this->m;
+    // auto lenDir = (inter.coords - ray.origin);
+    // // inter.distance = sqrtf(lenDir.x*lenDir.x + lenDir.y*lenDir.y + lenDir.z*lenDir.z);
     // inter.distance = t_tmp;
-    inter.normal = this->normal;
-    inter.emit = this->m->getEmission();
+    // inter.normal = this->normal;
+    // inter.emit = this->m->getEmission();
 
+    // test start
+    double eps = 0;
+    if(t_tmp > eps && u > eps && v > eps && 1-u-v > eps) {
+        inter.happened=true;
 
+        // inter.coords = Vector3f(ray.origin + ray.direction * t_tmp);
+        inter.coords = ray(t_tmp);
+       // std::cout << ray(t_tmp) << "\n" << u*v0 + v*v1 + (1-u-v)*v2 << "\n" <<std::endl;
+        inter.normal = normal;
+        inter.m = this->m;
+        inter.obj = this;
+        inter.distance = t_tmp;
+        inter.emit = m->getEmission();
+    }
+    // test end
+    
     return inter;
 }
 

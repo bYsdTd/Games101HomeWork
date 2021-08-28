@@ -89,6 +89,12 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
         return p.emit;
     }
     
+    auto format = [](Vector3f &a) {
+        if(a.x < 0) a.x = 0;
+        if(a.y < 0) a.y = 0;
+        if(a.z < 0) a.z = 0;
+    };
+
     // 直接光计算
     Intersection inter;
     float pdf_light;
@@ -116,6 +122,7 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
         // 与面光源法线的夹角
         auto costhetap = dotProduct(NN, -ws);
         L_dir = emit * fr * costheta * costhetap/d/d/pdf_light;
+        format(L_dir);
     }
     
     // 间接光计算
@@ -131,6 +138,7 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
         {
             L_indir = castRay(r, depth+1) * p.m->eval(wi, wo, p.normal) * dotProduct(wi, p.normal) / p.m->pdf(wi, wo, p.normal)/RussianRoulette;
         }
+        format(L_indir);
     }
     
     return L_dir + L_indir;
