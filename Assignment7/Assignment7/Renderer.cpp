@@ -26,9 +26,10 @@ void Renderer::Render(const Scene& scene)
     int m = 0;
 
     // change the spp value to change sample ammount
-    int spp = 512;
+    int spp = 16;
     std::cout << "SPP: " << spp << "\n";
 
+// multithread start
     int process = 0;
     auto deal = [&](int lx,int rx,int ly,int ry) {
         for (uint32_t j = ly; j <= ry; ++j) {
@@ -71,6 +72,7 @@ void Renderer::Render(const Scene& scene)
     }
 
     for(int i = 0;i < bx*by;i ++) th[i].join();
+// multi thread end 
 
     // for (uint32_t j = 0; j < scene.height; ++j) {
     //     for (uint32_t i = 0; i < scene.width; ++i) {

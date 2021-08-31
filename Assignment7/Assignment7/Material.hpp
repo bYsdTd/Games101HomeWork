@@ -7,7 +7,7 @@
 
 #include "Vector.hpp"
 
-enum MaterialType { DIFFUSE};
+enum MaterialType { DIFFUSE, MICROFACET_DIFFUSE, MICROFACET_GLOSSY};
 
 class Material{
 private:
@@ -108,6 +108,8 @@ public:
     // given a ray, calculate the contribution of this ray
     inline Vector3f eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &N);
 
+    inline Vector3f cookTorrance(const Vector3f &wi, const Vector3f &wo, const Vector3f &N);
+
 };
 
 Material::Material(MaterialType t, Vector3f e){
@@ -131,11 +133,11 @@ Vector3f Material::getColorAt(double u, double v) {
 
 Vector3f Material::sample(const Vector3f &wi, const Vector3f &N){
     switch(m_type){
-        case DIFFUSE:
+        case DIFFUSE: case MICROFACET_DIFFUSE: case MICROFACET_GLOSSY:
         {
             // uniform sample on the hemisphere
             float x_1 = get_random_float(), x_2 = get_random_float();
-            float z = std::fabs(1.0f - 2.0f * x_1); // -1 , 1
+            float z = std::fabs(1.0f - 2.0f * x_1);
             float r = std::sqrt(1.0f - z * z), phi = 2 * M_PI * x_2;
             Vector3f localRay(r*std::cos(phi), r*std::sin(phi), z);
             return toWorld(localRay, N);
@@ -147,7 +149,7 @@ Vector3f Material::sample(const Vector3f &wi, const Vector3f &N){
 
 float Material::pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
     switch(m_type){
-        case DIFFUSE:
+        case DIFFUSE: case MICROFACET_DIFFUSE: case MICROFACET_GLOSSY:
         {
             // uniform sample probability 1 / (2 * PI)
             if (dotProduct(wo, N) > 0.0f)
@@ -159,20 +161,86 @@ float Material::pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
     }
 }
 
+#include <assert.h>
+
+Vector3f Material::cookTorrance(const Vector3f &wi, const Vector3f &wo, const Vector3f &N) {
+    // return 0;
+    
+    auto V = wo;
+    auto L = wi;
+    auto H = normalize(V + L);
+    auto type = m_type;
+
+    if(!(dotProduct(N, V) > 0 && dotProduct(N, L) > 0)) return 0;
+
+    float F;
+    double G, D; // Fresnel, Geometry, Distribution
+    {
+       fresnel(wi, N, 1.2f, F);
+    }
+    {
+        double G1 = 2 * dotProduct(N, H) * dotProduct(N, V) / dotProduct(V, H);
+        double G2 = 2 * dotProduct(N, H) * dotProduct(N, L) / dotProduct(V, H);
+        G = clamp(0, 1, std::min(G1, G2));
+    }
+    {
+        double m; // lager, more diffused
+        if(type == MaterialType::MICROFACET_DIFFUSE) m = 0.6;
+        else m = 0.2;
+        double alpha = acos(dotProduct(H, N));
+        D = //(dotProduct(N,H) > 0) * 
+            exp(-pow(tan(alpha)/m, 2)) / (M_PI*m*m*pow(cos(alpha), 4));
+    }
+    auto ans = F * G * D / (dotProduct(N, L) * dotProduct(N, V) * 4);
+    return ans;
+}
+
+static Vector3f eval_diffuse(const Vector3f &wi, const Vector3f &wo, const Vector3f &N) {
+    return 1.0 / M_PI;
+}
+
 Vector3f Material::eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
     switch(m_type){
-        case DIFFUSE:
+        case DIFFUSE: //case MICROFACET_DIFFUSE: case MICROFACET_GLOSSY:
         {
-            // calculate the contribution of diffuse   model
             float cosalpha = dotProduct(N, wo);
             if (cosalpha > 0.0f) {
-                Vector3f diffuse = Kd / M_PI;
-                return diffuse;
+                return Kd * eval_diffuse(wi, wo, N);
             }
             else
                 return Vector3f(0.0f);
             break;
         }
+        case MICROFACET_DIFFUSE: 
+        {
+            float cosalpha = dotProduct(N, wo);
+            if (cosalpha > 0.0f) {
+                // auto ans = Ks * cookTorrance(wi, wo, N) + Kd * eval_diffuse(wi, wo, N);
+              //  clamp(0, 1, ans.x); clamp(0, 1, ans.y); clamp(0, 1, ans.z);
+            //   auto ans = Kd * eval_diffuse(wi, wo, N);
+            auto ans = Ks * cookTorrance(wi, wo, N);
+                return ans;
+            }
+            else
+                return Vector3f(0.0f);
+            break;
+        }
+        case MICROFACET_GLOSSY:
+        {
+            float cosalpha = dotProduct(N, wo);
+            if (cosalpha > 0.0f) {
+                double p = 25;
+                auto h = normalize(wi + wo);
+                double spec = pow(std::max(0.0f, dotProduct(N, h)), p);
+                auto ans = Ks * spec + Kd * eval_diffuse(wi, wo, N);
+              //  clamp(0, 1, ans.x); clamp(0, 1, ans.y); clamp(0, 1, ans.z);
+                return ans;
+            }
+            else
+                return Vector3f(0.0f);
+            break;
+        }
+
     }
 }
 
