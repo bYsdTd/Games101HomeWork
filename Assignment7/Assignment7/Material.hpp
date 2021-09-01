@@ -110,6 +110,10 @@ public:
 
     inline Vector3f cookTorrance(const Vector3f &wi, const Vector3f &wo, const Vector3f &N);
 
+    inline float DistributionGGX(const Vector3f &N, const Vector3f &H, float a);
+    inline float GeometrySchlickGGX(float NdotV, float k);
+    inline float GeometrySmith(const Vector3f &N, const Vector3f &V, const Vector3f &L, float k);
+    inline Vector3f fresnelSchlick(float cosTheta, const Vector3f &F0);
 };
 
 Material::Material(MaterialType t, Vector3f e){
@@ -163,6 +167,42 @@ float Material::pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
 
 #include <assert.h>
 
+float Material::DistributionGGX(const Vector3f &N, const Vector3f &H, float a)
+{
+    float a2 = a * a;
+    float NdotH  = std::max(dotProduct(N, H), 0.0f);
+    float NdotH2 = NdotH*NdotH;
+    
+    float nom    = a2;
+    float denom  = (NdotH2 * (a2 - 1.0) + 1.0);
+    denom        = M_PI * denom * denom;
+    
+    return nom / denom;
+}
+
+float Material::GeometrySchlickGGX(float NdotV, float k)
+{
+    float nom   = NdotV;
+    float denom = NdotV * (1.0 - k) + k;
+
+    return nom / denom;
+}
+
+float Material::GeometrySmith(const Vector3f &N, const Vector3f &V, const Vector3f &L, float k)
+{
+    float NdotV = std::max(dotProduct(N, V), 0.0f);
+    float NdotL = std::max(dotProduct(N, L), 0.0f);
+    float ggx1 = GeometrySchlickGGX(NdotV, k);
+    float ggx2 = GeometrySchlickGGX(NdotL, k);
+	
+    return ggx1 * ggx2;
+}
+
+Vector3f Material::fresnelSchlick(float cosTheta, const Vector3f &F0)
+{
+    return F0 + (Vector3f(1.0f) - F0) * pow(1.0f - cosTheta, 5.0f);
+}
+
 Vector3f Material::cookTorrance(const Vector3f &wi, const Vector3f &wo, const Vector3f &N) {
     // return 0;
     
@@ -173,24 +213,18 @@ Vector3f Material::cookTorrance(const Vector3f &wi, const Vector3f &wo, const Ve
 
     if(!(dotProduct(N, V) > 0 && dotProduct(N, L) > 0)) return 0;
 
-    float F;
-    double G, D; // Fresnel, Geometry, Distribution
-    {
-       fresnel(wi, N, 1.2f, F);
-    }
-    {
-        double G1 = 2 * dotProduct(N, H) * dotProduct(N, V) / dotProduct(V, H);
-        double G2 = 2 * dotProduct(N, H) * dotProduct(N, L) / dotProduct(V, H);
-        G = clamp(0, 1, std::min(G1, G2));
-    }
-    {
-        double m; // lager, more diffused
-        if(type == MaterialType::MICROFACET_DIFFUSE) m = 0.6;
-        else m = 0.2;
-        double alpha = acos(dotProduct(H, N));
-        D = //(dotProduct(N,H) > 0) * 
-            exp(-pow(tan(alpha)/m, 2)) / (M_PI*m*m*pow(cos(alpha), 4));
-    }
+    //Distribution
+    float a = 0.1f;
+    float D = DistributionGGX(N, H, a);
+
+    // Geometry
+    float k = a * a * 0.5f;
+    float G = GeometrySmith(N, V, L, k);
+    
+    // Fresnel
+    Vector3f F0 = Vector3f(1.00, 0.71, 0.29);
+    auto F = fresnelSchlick(std::max(dotProduct(H, V), 0.0f), F0);
+
     auto ans = F * G * D / (dotProduct(N, L) * dotProduct(N, V) * 4);
     return ans;
 }
@@ -215,10 +249,10 @@ Vector3f Material::eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &
         {
             float cosalpha = dotProduct(N, wo);
             if (cosalpha > 0.0f) {
-                // auto ans = Ks * cookTorrance(wi, wo, N) + Kd * eval_diffuse(wi, wo, N);
+                auto ans = Ks * cookTorrance(wi, wo, N) + Kd * eval_diffuse(wi, wo, N);
               //  clamp(0, 1, ans.x); clamp(0, 1, ans.y); clamp(0, 1, ans.z);
             //   auto ans = Kd * eval_diffuse(wi, wo, N);
-            auto ans = Ks * cookTorrance(wi, wo, N);
+            // auto ans = Ks * cookTorrance(wi, wo, N);
                 return ans;
             }
             else
