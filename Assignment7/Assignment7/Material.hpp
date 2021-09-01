@@ -90,7 +90,8 @@ public:
     //Vector3f m_color;
     Vector3f m_emission;
     float ior;
-    Vector3f Kd, Ks;
+    Vector3f Kd, Ks, F0;
+    float smoothness;
     float specularExponent;
     //Texture tex;
 
@@ -214,15 +215,13 @@ Vector3f Material::cookTorrance(const Vector3f &wi, const Vector3f &wo, const Ve
     if(!(dotProduct(N, V) > 0 && dotProduct(N, L) > 0)) return 0;
 
     //Distribution
-    float a = 0.1f;
-    float D = DistributionGGX(N, H, a);
+    float D = DistributionGGX(N, H, smoothness);
 
     // Geometry
-    float k = a * a * 0.5f;
+    float k = smoothness * smoothness * 0.5f;
     float G = GeometrySmith(N, V, L, k);
     
     // Fresnel
-    Vector3f F0 = Vector3f(1.00, 0.71, 0.29);
     auto F = fresnelSchlick(std::max(dotProduct(H, V), 0.0f), F0);
 
     auto ans = F * G * D / (dotProduct(N, L) * dotProduct(N, V) * 4);
